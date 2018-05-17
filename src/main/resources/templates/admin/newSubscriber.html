@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <title>New subscriber</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/libs/bootstrap/bootstrap.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/ionicons.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/navbar.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/footer.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/libs/datepicker/datepicker.css}"
+          rel="stylesheet" media="screen" />
+
+</head>
+
+
+<body>
+
+<nav th:replace="fragments/navbar :: common-navbar" />
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12 mx-auto">
+
+                    <!-- form card new sub -->
+                    <div class="card rounded-0">
+                        <div class="card-header text-center bg-light ">
+                            <h3 class="mb-0 ion-person-add">&nbsp;New subscriber</h3>
+                        </div>
+                        <!--/card-block-->
+                        <div class="card-body">
+                            <form th:action="@{/manage/subscriber/new}" class="form" role="form" method="POST" th:object="${subscriber}" >
+                                <div class="row col-lg-12">
+                                    <div class="form-group col-lg-6">
+                                        <b><label>Firstname <span class="text-danger">*</span></label></b>
+                                        <input type="text" class="form-control form-control-lg rounded-0" th:field="*{firstname}" required="required" />
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <b><label>Lastname <span class="text-danger">*</span></label></b>
+                                        <input type="text" class="form-control form-control-lg rounded-0" th:field="*{lastname}" required="required" />
+                                    </div>
+                                </div>
+
+                                <div class="row col-lg-12">
+                                    <div class="form-group col-lg-6">
+                                        <b><label>Date of birth <span class="text-danger">*</span></label></b>
+                                        <input type="text" data-toggle="datepicker" class="form-control form-control-lg rounded-0 dob" th:field="*{dateOfBirth}" required="required" />
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <b><label>Email <span class="text-danger">*</span></label></b>
+                                        <input type="email" class="form-control form-control-lg rounded-0 dob" th:field="*{email}" />
+                                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row col-lg-12">
+                                    <div class="form-group col-lg-6">
+                                        <b><label>Password <span class="text-danger">*</span></label></b>
+                                        <input type="password" class="form-control form-control-lg rounded-0 dob" th:field="*{password}" required="required" />
+                                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <b><label>Confirm password <span class="text-danger">*</span></label></b>
+                                        <input type="password" class="form-control form-control-lg rounded-0 dob" name="confirmPassword" required="required" />
+                                    </div>
+                                </div>
+
+                                <div class="row col-lg-12">
+                                    <div class="form-group col-lg-12">
+                                        <b><label>Street</label></b>
+                                        <input type="text" class="form-control form-control-lg rounded-0 dob" th:field="*{street}" />
+                                    </div>
+                                </div>
+
+                                <div class="row col-lg-12">
+                                    <div class="form-group col-lg-6">
+                                        <b><label>Postal code</label></b>
+                                        <input type="text" class="form-control form-control-lg rounded-0 dob" th:field="*{postalCode}" />
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <b><label>City</label></b>
+                                        <input type="text" class="form-control form-control-lg rounded-0 dob" th:field="*{city}" />
+                                    </div>
+                                </div>
+
+                                <div class="row col-lg-12">
+                                    <div class="form-group col-lg-6">
+                                        <b><label>Phone number</label></b>
+                                        <input type="text" class="form-control form-control-lg rounded-0 dob" th:field="*{phoneNumber}" />
+                                        <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <b><label>Membership</label></b>
+                                        <select class="custom-select form-control form-control-lg rounded-0 dob" th:field="*{membership}">
+                                            <option value="1">BASIC</option>
+                                            <option value="2">VIP</option>
+                                            <option value="3">ELITE</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary float-right ml-1">Submit</button>
+                                <a th:href="@{/manage/subscribers/all}" class="btn btn-danger float-right ml-1">Cancel</a>
+                                <button type="reset" class="btn btn-secondary float-right">Reset</button>
+
+                            </form>
+                        </div>
+                        <!--/card-block-->
+                    </div>
+                    <!-- /form card new sub -->
+                </div>
+            </div>
+            <!--/row-->
+        </div>
+        <!--/col-->
+    </div>
+    <!--/row-->
+</div>
+<!--/container-->
+
+
+<footer th:replace="fragments/footer :: common-footer" />
+
+<script th:src="@{/libs/jquery/jquery.js}"></script>
+<script th:src="@{/libs/bootstrap/bootstrap.js}"></script>
+<script th:src="@{/libs/datepicker/datepicker.js}"></script>
+<script th:src="@{/js/newSubscriber.js}"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <title>New book</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/libs/bootstrap/bootstrap.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/libs/datepicker/datepicker.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/libs/datatables/datatables.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/ionicons.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/navbar.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/footer.css}"
+          rel="stylesheet" media="screen" />
+
+</head>
+
+
+<body>
+
+<nav th:replace="fragments/navbar :: common-navbar" />
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12 mx-auto">
+
+                    <!-- Jumbotron new genre -->
+                    <div class="py-3 text-center border mb-5">
+                        <h2 ><i class="ion-plus-circled"></i>&nbsp;Add new author(s)</h2>
+                        <hr class="my-4" />
+                        <form th:action="@{/manage/author/new}" class="form" role="form" method="POST">
+                            <div class="row col-lg-12">
+                                <div class="form-group col-lg-12 wrapper">
+                                    <div class="form-inline mb-2">
+                                        <div class="form-group mr-5">
+                                            <input type="text" class="form-control rounded-0" name="firstname" placeholder="Firstname *" required="required" />
+                                        </div>
+                                        <div class="form-group mr-5">
+                                            <input type="text" class="form-control rounded-0" name="lastname" placeholder="Lastname *" required="required" />
+                                        </div>
+                                        <div class="form-group mr-5">
+                                            <input type="text" class="form-control rounded-0" name="pseudonym" placeholder="Pseudonym" />
+                                        </div>
+                                        <div class="form-group mr-4">
+                                            <input type="text" class="form-control rounded-0 datePicker" data-toggle="datepicker" name="dob" placeholder="Date of birth *" required="required" />
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" class="form-control addRowBtn"><i class="ion-plus-round text-success"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-12 mx-auto">
+                                    <input type="submit" class="btn btn-success" value="Submit" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- form card new book -->
+                    <div class="card rounded-0">
+                        <div class="card-header text-center bg-light">
+                            <h3 class="mb-0 ion-android-list">&nbsp;Authors</h3>
+                        </div>
+                        <!--card-block-->
+                        <div class="card-body">
+                            <table id="genresTable" class="display nowrap compact table-striped table-bordered" width="100%">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Name</th>
+                                    <th>Date of birth</th>
+                                    <th>Number of books</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="author : ${authors}" >
+                                    <td></td>
+                                    <td th:text="${author.firstname+' '+author.lastname}"></td>
+                                    <td th:text="${author.dateOfBirth}"></td>
+                                    <td th:text="${#lists.size(author.books)}"></td>
+                                    <td class="text-center">
+                                        <a th:href="@{'/manage/genre/edit/' + ${author.id}}" class="ion-ios-compose text-dark"></a>
+                                        <a th:href="@{'/manage/genre/delete/' + ${author.id}}" class="ion-trash-b text-danger"></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--/card-block-->
+                    </div>
+                    <!-- /form card new book -->
+                </div>
+            </div>
+            <!--/row-->
+        </div>
+        <!--/col-->
+    </div>
+    <!--/row-->
+</div>
+<!--/container-->
+
+
+<footer th:replace="fragments/footer :: common-footer" />
+
+<script th:src="@{/libs/jquery/jquery.js}" ></script>
+<script th:src="@{/libs/bootstrap/bootstrap.js}"></script>
+<script th:src="@{/libs/datepicker/datepicker.js}"></script>
+<script th:src="@{/libs/datatables/datatables.js}"></script>
+<script th:src="@{/js/createAndListAuthors.js}"></script>
+</body>
+</html>

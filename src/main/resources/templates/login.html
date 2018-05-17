@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <title>Login</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/libs/bootstrap/bootstrap.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/ionicons.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/datepicker.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/navbar.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/footer.css}"
+          rel="stylesheet" media="screen" />
+
+
+</head>
+
+<body>
+
+<nav th:replace="fragments/navbar :: common-navbar" ></nav>
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+
+                    <!-- form card login -->
+                    <div class="card rounded-0">
+                        <div class="card-header">
+                            <h3 class="mb-0">Login</h3>
+                        </div>
+                        <div class="card-body">
+                            <form name="f" th:action="@{/login}" class="form" role="form" id="formLogin" method="POST">
+                                <div class="form-group">
+                                    <input type="email" class="form-control form-control-lg rounded-0" name="email" id="loginEmail" required="required" th:placeholder="Email" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control form-control-lg rounded-0" name="password" id="loginPassword" required="required" th:placeholder="Password" />
+                                </div>
+                                <div align="center" th:if="${param.error}">
+                                    <div class="alert alert-danger">
+                                        Invalid username or password.
+                                    </div>
+                                </div>
+                                <div align="center" th:if="${param.logout}">
+                                    <div class="alert alert-primary">
+                                        You have been logged out.
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg float-right" id="btnLogin">Login</button>
+                            </form>
+                        </div>
+                        <!--/card-block-->
+                    </div>
+                    <!-- /form card login -->
+                </div>
+            </div>
+            <!--/row-->
+        </div>
+        <!--/col-->
+    </div>
+    <!--/row-->
+</div>
+<!--/container-->
+
+<footer th:replace="fragments/footer :: common-footer" ></footer>
+
+<script th:src="@{/libs/jquery/jquery.js}"></script>
+<script th:src="@{/libs/bootstrap/bootstrap.js}"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <title>New book</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/libs/bootstrap/bootstrap.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/libs/chosen-select/chosen.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/ionicons.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/navbar.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/footer.css}"
+          rel="stylesheet" media="screen" />
+
+
+</head>
+
+
+<body>
+
+<nav th:replace="fragments/navbar :: common-navbar" ></nav>
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12 mx-auto">
+
+                    <!-- form card new book -->
+                    <div class="card rounded-0">
+                        <div class="card-header text-center bg-light ">
+                            <h3 class="mb-0 ion-plus text-dark">&nbsp;New book</h3>
+                        </div>
+                        <!--card-block-->
+                        <div class="card-body">
+                            <form th:action="@{/manage/book/new}" class="form" role="form" method="POST">
+                                <div class="row col-lg-12">
+                                    <div class="form-group col-lg-5">
+                                        <b><label>Title <span class="text-danger">*</span></label></b>
+                                        <input type="text" class="form-control rounded-0" name="title" required="required" />
+                                    </div>
+                                    <div class="form-group col-lg-5">
+                                        <b><label>Subtitle </label></b>
+                                        <input type="text" class="form-control rounded-0 dob" name="subtitle" />
+                                    </div>
+                                    <div class="form-group col-lg-2">
+                                        <b><label>Copies <span class="text-danger">*</span></label></b>
+                                        <input type="number" class="form-control rounded-0 dob" min="1" value="1" name="nbCopies" required="required" />
+                                    </div>
+                                </div>
+
+                                <div class="row col-lg-12">
+                                    <div class="form-group col-lg-3">
+                                        <b><label>Isbn <span class="text-danger">*</span></label></b>
+                                        <input type="text" class="form-control rounded-0" name="isbn" required="required" />
+                                    </div>
+
+                                    <div class="form-group col-lg-2">
+                                        <b><label>Genre <span class="text-danger">*</span></label></b>
+                                        <select name="genre" data-placeholder="Select genre" class="form-control mb-5 chosen-select" required="required" >
+                                            <option></option>
+                                            <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}" />
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-lg-7">
+                                        <b><label>Author(s) <span class="text-danger">*</span></label></b>
+                                        <select name="authors" data-placeholder="Choose one or multiple authors..." class="form-control mb-5 chosen-select" multiple="multiple" required="required" >
+                                            <option></option>
+                                            <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author}" />
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary float-right ml-1">Submit</button>
+                                <a th:href="@{/manage/book/new}" class="btn btn-danger float-right ml-1">Cancel</a>
+                                <button type="reset" class="btn btn-secondary float-right">Reset</button>
+                            </form>
+                        </div>
+                        <!--/card-block-->
+                    </div>
+                    <!-- /form card new book -->
+                </div>
+            </div>
+            <!--/row-->
+        </div>
+        <!--/col-->
+    </div>
+    <!--/row-->
+</div>
+<!--/container-->
+
+
+<footer th:replace="fragments/footer :: common-footer" ></footer>
+
+<script th:src="@{/libs/jquery/jquery.js}" ></script>
+<script th:src="@{/libs/bootstrap/bootstrap.js}"></script>
+<script th:src="@{/libs/chosen-select/chosen.jquery.js}"></script>
+<script th:src="@{/js/newBook.js}"></script>
+</body>
+</html>

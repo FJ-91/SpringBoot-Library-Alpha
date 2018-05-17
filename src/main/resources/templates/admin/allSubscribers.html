@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <title>New subscriber</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/libs/bootstrap/bootstrap.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/ionicons.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/libs/datatables/datatables.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/navbar.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/footer.css}"
+          rel="stylesheet" media="screen" />
+
+
+</head>
+
+
+<body>
+
+<nav th:replace="fragments/navbar :: common-navbar" />
+
+<div class="container py-5">
+    <div class="row">
+        <th:block th:if="${deleteSuccess} != null">
+            <span id="successAlert" class="alert alert-success alert-dismissible mx-auto fade show" role="alert" th:text="${deleteSuccess}"></span>
+        </th:block>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12 mx-auto">
+
+                    <!-- form card new sub -->
+                    <div class="card rounded-0">
+                        <div class="card-header text-center bg-light">
+                            <h3 class="mb-0 ion-ios-people">&nbsp;Subscribers</h3>
+                        </div>
+                        <!--card-block-->
+                        <div class="card-body">
+                            <table id="subsTable" class="display nowrap compact table-striped table-bordered" width="100%">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Name</th>
+                                    <th>Date of birth</th>
+                                    <th>Email</th>
+                                    <th>Borrowings</th>
+                                    <th>Delays</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="sub : ${subscribers}" >
+                                    <td></td>
+                                    <td>
+                                        <b><span th:text="${sub.lastname+' '+sub.firstname}"></span></b>
+                                        <span th:if="${sub.membership.id} == 1" class="badge badge-info float-right">BASIC</span>
+                                        <span th:if="${sub.membership.id} == 2" class="badge badge-success float-right"><span class="ion-android-star-outline"></span> VIP <span class="ion-android-star-outline"></span></span>
+                                        <span th:if="${sub.membership.id} == 3" class="badge badge-warning float-right"><span class="ion-star"></span> ELITE <span class="ion-star"></span></span>
+                                    </td>
+                                    <td th:text="${sub.dateOfBirth}"></td>
+                                    <td th:text="${sub.email}"></td>
+                                    <td th:text="${#lists.size(sub.borrowings)}"></td>
+                                    <td th:text="${sub.totalDelays}"></td>
+                                    <td class="text-center">
+                                        <a th:href="@{'/manage/subscriber/edit/' + ${sub.id}}" class="ion-ios-compose text-dark"></a>
+                                        <a th:href="@{'/manage/subscriber/delete/' + ${sub.id}}" class="ion-trash-b text-danger ml-2"></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--/card-block-->
+                    </div>
+                    <!-- /form card new sub -->
+                </div>
+            </div>
+            <!--/row-->
+        </div>
+        <!--/col-->
+    </div>
+    <!--/row-->
+</div>
+<!--/container-->
+
+
+<!--footer-->
+<footer th:replace="fragments/footer :: common-footer" ></footer>
+
+<!--javascript-->
+<script th:src="@{/libs/jquery/jquery.js}" ></script>
+<script th:src="@{/libs/bootstrap/bootstrap.js}"></script>
+<script th:src="@{/libs/datatables/datatables.js}"></script>
+<script th:src="@{/js/allSubscribers.js}"></script>
+
+</body>
+</html>

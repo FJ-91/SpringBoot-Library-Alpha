@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <title>New book</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/libs/bootstrap/bootstrap.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/libs/datatables/datatables.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/ionicons.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/navbar.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/footer.css}"
+          rel="stylesheet" media="screen" />
+
+</head>
+
+
+<body>
+
+<nav th:replace="fragments/navbar :: common-navbar" />
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12 mx-auto">
+
+                    <!-- Jumbotron new genre -->
+                    <div class="py-1 text-center border mb-3">
+                        <h2 ><i class="ion-plus-circled"></i>&nbsp;Add a new genre</h2>
+                        <hr class="my-4" />
+                        <form th:action="@{/manage/genre/new}" class="form" role="form" method="POST">
+                            <div class="row col-lg-12">
+                                <div class="form-group col-lg-10">
+                                    <input type="text" class="form-control rounded-0" placeholder="Ex: Horror, drama, comedy..." name="genreName" required="required" />
+                                    <span class="text-danger text-center" th:if="${genreAlreadyExists}" th:text="${genreAlreadyExists}" />
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <button type="submit" class="btn btn-primary float-right ml-1">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- form card new book -->
+                    <div class="card rounded-0">
+                        <div class="card-header">
+                            <h3 class="mb-0 ion-android-list">&nbsp;Genres</h3>
+                        </div>
+                        <!--card-block-->
+                        <div class="card-body">
+                            <table id="genresTable" class="display nowrap compact table-striped table-bordered" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Name</th>
+                                        <th>Number of books</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="genre : ${genres}" >
+                                        <td></td>
+                                        <td th:text="${genre.name}"></td>
+                                        <td th:text="${#lists.size(genre.books)}"></td>
+                                        <td class="text-center">
+                                            <a th:href="@{'/manage/genre/edit/' + ${genre.id}}" class="ion-ios-compose text-dark"></a>
+                                            <a th:href="@{'/manage/genre/delete/' + ${genre.id}}" class="ion-trash-b text-danger"></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--/card-block-->
+                    </div>
+                    <!-- /form card new book -->
+                </div>
+            </div>
+            <!--/row-->
+        </div>
+        <!--/col-->
+    </div>
+    <!--/row-->
+</div>
+<!--/container-->
+
+
+<footer th:replace="fragments/footer :: common-footer" />
+
+<script th:src="@{/libs/jquery/jquery.js}" ></script>
+<script th:src="@{/libs/bootstrap/bootstrap.js}"></script>
+<script th:src="@{/libs/datatables/datatables.js}"></script>
+<script th:src="@{/js/createAndListGenres.js}"></script>
+</body>
+</html>

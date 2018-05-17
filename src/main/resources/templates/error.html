@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <title>Login</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/libs/bootstrap/bootstrap.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/ionicons.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/navbar.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/footer.css}"
+          rel="stylesheet" media="screen" />
+
+</head>
+
+<body>
+
+<nav th:replace="fragments/navbar :: common-navbar" />
+<div class="container">
+    <p class="mx-auto">
+        <h2 th:text="${errortitle}"></h2>
+    </p>
+</div>
+<footer th:replace="fragments/footer :: common-footer" />
+
+<!--javascript-->
+<script th:src="@{/libs/jquery/jquery.js}" ></script>
+<script th:src="@{/libs/bootstrap/bootstrap.js}"></script>
+</body>
+</html>

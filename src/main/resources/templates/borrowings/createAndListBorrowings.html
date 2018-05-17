@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <title>Borrowings management</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/libs/bootstrap/bootstrap.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/libs/datatables/datatables.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/libs/chosen-select/chosen.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/ionicons.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/navbar.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/footer.css}"
+          rel="stylesheet" media="screen" />
+
+</head>
+
+
+<body>
+
+<nav th:replace="fragments/navbar :: common-navbar" />
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12 mx-auto">
+
+                    <!-- Jumbotron new genre -->
+                    <div class="py-1 text-center border mb-3">
+                        <h4><i class="ion-plus-circled"></i>&nbsp;New borrowing</h4>
+                        <hr class="my-4" />
+                        <form th:action="@{/manage/borrowing/new}" class="form" role="form" method="POST">
+                            <div class="row col-lg-12">
+                                <div class="form-inline col-lg-5">
+                                        <select name="copy" data-placeholder="Choose a copy" class="form-control mb-5 chosen-select" required="required" >
+                                            <option></option>
+                                            <option th:each="copy : ${availableCopies}" th:value="${copy.id}" th:text="${copy}"></option>
+                                        </select>
+                                </div>
+                                <div class="form-inline col-lg-5">
+                                    <select name="sub" data-placeholder="Select a subscriber" class="form-control mb-5 chosen-select" required="required" >
+                                        <option></option>
+                                        <option th:each="subscriber : ${eligibleSubscribers}" th:value="${subscriber.id}" th:text="${subscriber}"></option>
+                                    </select>
+                                </div>
+                                <div class="form-inline col-lg-2">
+                                    <input type="submit" class="btn btn-sm btn-success ml-5" value="Submit" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- form card new book -->
+                    <div class="card rounded-0">
+                        <div class="card-header text-center bg-light">
+                            <h3 class="mb-0 ion-android-list">&nbsp;Borrowings</h3>
+                        </div>
+                        <!--card-block-->
+                        <div class="card-body">
+                            <table class="display nowrap compact table-striped table-bordered" width="100%">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Copy n°</th>
+                                    <th>Isbn</th>
+                                    <th>Title</th>
+                                    <th>Borrower</th>
+                                    <th>Borrowing date</th>
+                                    <th>Expected return</th>
+                                    <th>Return date</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="borrowing : ${borrowings}" >
+                                    <td></td>
+                                    <td th:text="${borrowing.copy.id}"></td>
+                                    <td th:text="${borrowing.copy.book.isbn}"></td>
+                                    <td th:text="${borrowing.copy.book.title}"></td>
+                                    <td th:text="${borrowing.subscriber.name}"></td>
+                                    <td th:text="${borrowing.borrowDate}"></td>
+                                    <td th:text="${borrowing.expectedReturnDate}"></td>
+                                    <th:block th:switch="${borrowing.returnDate}">
+                                        <td th:case="null" class="text-danger">Not returned yet</td>
+                                        <td th:case="*" th:text="${borrowing.returnDate}"></td>
+                                    </th:block>
+                                    <td class="text-center">
+                                        <a th:if="!${borrowing.returnDate}" th:href="@{'/manage/borrowing/return/' + ${borrowing.id}}" class="ion-arrow-return-right text-primary"></a>
+                                        <a th:if="${borrowing.returnDate}" th:href="@{'/manage/borrowing/delete/' + ${borrowing.id}}" class="ion-trash-b text-danger"></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--/card-block-->
+                    </div>
+                    <!-- /form card new book -->
+                </div>
+            </div>
+            <!--/row-->
+        </div>
+        <!--/col-->
+    </div>
+    <!--/row-->
+</div>
+<!--/container-->
+
+
+<footer th:replace="fragments/footer :: common-footer" />
+
+<script th:src="@{/libs/jquery/jquery.js}"></script>
+<script th:src="@{/libs/bootstrap/popper.min.js}" ></script>
+<script th:src="@{/libs/bootstrap/bootstrap.js}"></script>
+<script th:src="@{/libs/chosen-select/chosen.jquery.js}"></script>
+<script th:src="@{/libs/datatables/datatables.js}"></script>
+<script th:src="@{/js/createAndListBorrowings.js}"></script>
+</body>
+</html>

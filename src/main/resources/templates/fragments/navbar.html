@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<nav th:fragment="common-navbar" class="navbar navbar-light navbar-expand-lg justify-content-center">
+    <div class="container">
+        <a href="/" class="navbar-brand mr-0"><img src="/img/logo.png" width="146" height="50" alt="" /></a>
+        <button class="navbar-toggler ml-1" type="button" data-toggle="collapse" data-target="#collapsingNavbar2">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="navbar-collapse collapse justify-content-between align-items-center w-100" id="collapsingNavbar2">
+        <th:block sec:authorize="hasAuthority('ADMIN')">
+            <ul class="navbar-nav mx-auto text-center">
+                <li class="nav-item dropdown separator">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <b>Books</b>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" th:href="@{/manage/book/new}">New book</a>
+                        <a class="dropdown-item" th:href="@{/manage/books/all}">Books list</a>
+                    </div>
+                </li>
+                <li class="nav-item separator">
+                    <a th:href="@{/manage/copies}" class="nav-link"><b>Copies</b></a>
+                </li>
+                <li class="nav-item separator">
+                    <a th:href="@{/manage/authors}" class="nav-link"><b>Authors</b></a>
+                </li>
+                <li class="nav-item separator">
+                    <a th:href="@{/manage/genres}" class="nav-link"><b>Genres</b></a>
+                </li>
+                <li class="nav-item separator">
+                    <a th:href="@{/manage/borrowings}" class="nav-link"><b>Borrowings</b></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <b>Subscribers</b>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" th:href="@{/manage/subscriber/new}">New subscriber</a>
+                        <a class="dropdown-item" th:href="@{/manage/subscribers/all}">Subscribers list</a>
+                    </div>
+                </li>
+            </ul>
+            <div class="nav navbar-nav flex-row justify-content-center flex-nowrap">
+                <span class="badge badge-dark mr-2"><span class="align-middle">Admin</span></span>
+                <b><span class="text-white mr-3" th:text ="${#authentication.principal.user.firstname+' '+#authentication.principal.user.lastname}"></span></b>
+                <span><a th:href="@{/logout}"><i class="ion-log-out text-white"> Logout</i></a></span>
+            </div>
+        </th:block>
+
+        <th:block sec:authorize="hasAuthority('SUBSCRIBER')">
+            <ul class="navbar-nav mx-auto text-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">My borrowings</a>
+                </li>
+            </ul>
+            <div class="nav navbar-nav flex-row justify-content-center flex-nowrap">
+                <span class="badge badge-light mr-2"><span class="align-middle">Subscriber</span></span>
+                <b><span class="text-white mr-3" th:text ="${#authentication.principal.user.firstname+' '+#authentication.principal.user.lastname}"></span></b>
+                <span><a th:href="@{/logout}"><i class="ion-log-out text-white"> Logout</i></a></span>
+            </div>
+        </th:block>
+    </div>
+    </div>
+</nav>
+</html>
+

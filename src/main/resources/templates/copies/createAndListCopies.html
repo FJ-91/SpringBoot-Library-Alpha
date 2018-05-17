@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <title>Copies management</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/libs/bootstrap/bootstrap.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/libs/datatables/datatables.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/libs/chosen-select/chosen.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/ionicons.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/navbar.css}"
+          rel="stylesheet" media="screen" />
+    <link th:href="@{/css/footer.css}"
+          rel="stylesheet" media="screen" />
+
+</head>
+
+
+<body>
+
+<nav th:replace="fragments/navbar :: common-navbar" />
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12 mx-auto">
+
+                    <!-- Jumbotron new genre -->
+                    <div class="py-1 text-center border mb-3">
+                        <h2 ><i class="ion-plus-circled"></i>&nbsp;Add new copies</h2>
+                        <form th:action="@{/manage/copies/new}" class="form" role="form" method="POST">
+                            <div class="row col-lg-12">
+                                <div class="form-inline col-lg-6">
+                                        <b><label class="mr-2">Book</label></b>
+                                        <select name="book" data-placeholder="Select a book" class="form-control mb-5 chosen-select" required="required" >
+                                            <option></option>
+                                            <option th:each="book : ${books}" th:value="${book.id}" th:text="${book}"></option>
+                                        </select>
+                                </div>
+                                <div class="form-inline col-lg-4">
+                                    <b><label class="mr-2">Copies to add</label></b>
+                                    <input type="number" class="form-control rounded-0 dob" min="1" value="1" name="nbCopies" required="required" />
+                                </div>
+                                <div class="form-inline col-lg-2">
+                                    <input type="submit" class="btn btn-success" value="Submit" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- form card new book -->
+                    <div class="card rounded-0">
+                        <div class="card-header text-center bg-light">
+                            <h3 class="mb-0 ion-android-list">&nbsp;Copies</h3>
+                        </div>
+                        <!--card-block-->
+                        <div class="card-body">
+                            <table class="display nowrap compact table-striped table-bordered" width="100%">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Copy number</th>
+                                    <th>Title</th>
+                                    <th>Subtitle</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="copy : ${copies}" >
+                                    <td></td>
+                                    <td th:text="${copy.id}"></td>
+                                    <td>
+                                        <i><span th:text="${copy.book.title}"></span></i>
+                                        <span th:if="${copy.available}" class="float-right ion-checkmark-circled text-success" data-toggle="tooltip" data-placement="top" title="Available"></span>
+                                        <span th:if="${!copy.available}" class="float-right ion-close-circled text-danger" data-toggle="tooltip" data-placement="top" title="Unavailable"></span>
+                                    </td>
+                                    <td th:text="${copy.book.subtitle}"></td>
+                                    <td class="text-center">
+                                        <a th:href="@{'/manage/copy/delete/' + ${copy.id}}" class="ion-trash-b text-danger"></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--/card-block-->
+                    </div>
+                    <!-- /form card new book -->
+                </div>
+            </div>
+            <!--/row-->
+        </div>
+        <!--/col-->
+    </div>
+    <!--/row-->
+</div>
+<!--/container-->
+
+
+<footer th:replace="fragments/footer :: common-footer" />
+
+<script th:src="@{/libs/jquery/jquery.js}"></script>
+<script th:src="@{/libs/bootstrap/popper.min.js}" ></script>
+<script th:src="@{/libs/bootstrap/bootstrap.js}"></script>
+<script th:src="@{/libs/chosen-select/chosen.jquery.js}"></script>
+<script th:src="@{/libs/datatables/datatables.js}"></script>
+<script th:src="@{/js/createAndListCopies.js}"></script>
+</body>
+</html>

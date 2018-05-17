@@ -1,0 +1,21 @@
+body{
+    position: relative;
+    margin: 0;
+    padding-bottom: 6rem;
+    min-height: 100%;
+    background-size: cover;
+}
+
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.navbar{
+    background: url("/img/cover_bg.png");
+    box-shadow: 0 8px 6px -6px #424242;
+}
+
+.separator{
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<!-- Bootstrap core CSS -->
+<link th:href="@{/libs/bootstrap/bootstrap.css}"
+      rel="stylesheet" media="screen" />
+<link th:href="@{/css/ionicons.css}"
+      rel="stylesheet" media="screen" />
+<link th:href="@{/css/navbar.css}"
+      rel="stylesheet" media="screen" />
+<link th:href="@{/css/footer.css}"
+      rel="stylesheet" media="screen" />
+
+
+<body>
+
+<nav th:replace="fragments/navbar :: common-navbar" />
+
+<div class="container text-center py-5">
+    <h1>SUCCESS ADMIN</h1>
+</div>
+
+<footer th:replace="fragments/footer :: common-footer" />
+<script th:src="@{/libs/jquery/jquery.js}" ></script>
+<script th:src="@{/libs/bootstrap/bootstrap.js}"></script>
+</body>
+</html>
